@@ -21,7 +21,7 @@ char **splitString(const char *str, const char *delimiter, int *count)
 		(*count)++;
 		*token = strtok(NULL, *delimiter);
 	}
-	**result = (char **)malloc((*count) * sizeof(char *));
+	result = (char **)malloc((*count) * sizeof(char *));
 
 	*token = strtok(_strdup(str), delimiter);
 
@@ -56,25 +56,25 @@ void printErrorMessage(const char *message)
  * @str: The input string to be duplicated.
  * Return:duplicate
  */
-char *_strdup(const char *str)
+char *_strdup(const char *src)
 {
-	size_t length;
 	char *duplicate;
+	size_t length;
 
-	if (str == NULL)
+	if (src == NULL)
 	{
 		return (NULL);
 	}
 
-	length = myStrlen(str);
+	length = myStrlen(src);
 
-	*duplicate = (char *)malloc((length + 1) * sizeof(char));
+	duplicate = (char *)malloc((length + 1) * sizeof(char));
 
 	if (duplicate == NULL)
 	{
 		return (NULL);
 	}
-	_strcpy(duplicate, str);
+	_strcpy(duplicate, src);
 
 	return (duplicate);
 }
