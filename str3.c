@@ -16,21 +16,21 @@ char **splitString(const char *str, const char *delimiter, int *count)
 
 	*count = 0;
 
-	while (token != NULL)
+	while (*token != NULL)
 	{
 		(*count)++;
-		token = strtok(NULL, *delimiter);
+		*token = strtok(NULL, *delimiter);
 	}
 	**result = (char **)malloc((*count) * sizeof(char *));
 
-	token = strtok(_strdup(str), delimiter);
+	*token = strtok(_strdup(str), delimiter);
 
 	i = 0;
-	while (token != NULL)
+	while (*token != NULL)
 	{
 		result[i] = _strdup(token);
 		i++;
-		token = strtok(NULL, delimiter);
+		*token = strtok(NULL, *delimiter);
 	}
 
 	free(copy);

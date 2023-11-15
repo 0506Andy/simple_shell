@@ -11,6 +11,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+extern char **environ;
+void *_calloc(size_t num_elements, size_t element_size);
 void printParentPID(void);
 int _putchar(char c);
 void print_environment(void);

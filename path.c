@@ -13,9 +13,9 @@ char *get_env(void)
 
 	while (environ && environ[i])
 	{
-		if (strncmp(environ[i], "PATH", 4) == 0)
+		if (_strncmp(environ[i], "PATH", 4) == 0)
 		{
-			path = strdup(environ[i]);
+			path = _strdup(environ[i]);
 			return (path);
 		}
 		i++;
@@ -38,7 +38,7 @@ char *path_d(char *comd)
 
 	if (stat(comd, &st) == 0)
 	{
-		comand = strdup(comd);
+		comand = _strdup(comd);
 		return (comand);
 	}
 	path = get_env();
@@ -48,15 +48,15 @@ char *path_d(char *comd)
 	rout = tk_cm(path, "=:");
 	while (rout[i] != NULL)
 	{
-		comand = _calloc((strlen(rout[i]) + strlen(comd) + 2), sizeof(char));
+		comand = _calloc((myStrlen(rout[i]) + myStrlen(comd) + 2), sizeof(char));
 		if (comand == NULL)
 		{
 			free(comand);
 			return (NULL);
 		}
-		strcpy(comand, rout[i]);
-		strcat(comand, "/");
-		strcat(comand, comd);
+		myStrcmp(comand, rout[i]);
+		_strcat(comand, "/");
+		_strcat(comand, comd);
 		if (stat(comand, &st) == 0)
 		{
 			free(path);
