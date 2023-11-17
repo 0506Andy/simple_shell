@@ -2,6 +2,7 @@
 #define MAIN_H
 
 #include <stdio.h>
+#include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
@@ -12,10 +13,9 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
-#define STATUS status
 
 extern char **environ;
-extern int status = 0;
+extern int STATUS;
 /**
  * struct built_in - Struct built_in
  *
@@ -33,8 +33,17 @@ int (*get_built_in(char *s))(void);
 void check_built_in(int (*e)(), char **buffer, char *command);
 void freess(char *path, char **list_token);
 void freesess(char *path, char **list_token, char *command);
-int _word(char *strn);
+int _word(const char *strn);
 void free_tokens(char **token);
+void *_calloc(size_t num_elements, size_t element_size);
+void _strcpy(char *dest, const char *src);
+char *_strcat(char *dest, char *src);
+char *_strchr(char *s, char c);
+int _strncmp(const char *s1, const char *s2, size_t n);
+size_t _strcspn(const char *s, const char *reject);
+int myStrcmp(const char *s1, const char *s2);
+size_t myStrlen(const char *s);
+char *_strdup(const char *str);
 char **tk_cm(const char *comand, const char *delim);
 void error_input(char *copy);
 char *path_d(char *comd);
@@ -52,16 +61,8 @@ char *get_env(void);
 char *path_d(char *comd);
 void run_shell(void);
 void readline(void);
-void _strcpy(char *dest, const char *src);
-char *_strcat(char *dest, char *src);
-char *_strchr(char *s, char c);
-int _strncmp(const char *s1, const char *s2, size_t n);
-size_t _strcspn(const char *s, const char *reject);
-int myStrcmp(const char *s1, const char *s2);
-int myStrlen(const char *s;
 char **splitString(const char *str, const char *delimiter, int *count);
 void printErrorMessage(const char *message);
-char *_strdup(const char *str);
 int custom_execve(const char *pathname, char *const argv[], char *const envp[]);
 int custom_open(const char *pathname, int flags, mode_t mode);
 ssize_t custom_read(int fd, void *buf, size_t count);

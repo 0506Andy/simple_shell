@@ -38,16 +38,17 @@ char *_strcat(char *dest, char *src)
  */
 void _strcpy(char *dest, const char *src)
 {
-	char *start = dest;
-
-	while (*src)
+	if (dest == NULL || src == NULL)
+	{
+		return;
+	}
+	while (*src != '\0')
 	{
 		*dest = *src;
 		dest++;
 		src++;
 	}
-	*dest = '\0';
-	return (start);
+	*dest = ('\0');
 }
 
 /**
@@ -108,11 +109,10 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 size_t _strcspn(const char *s, const char *reject)
 {
 	size_t len = 0;
-	const char *r;
 
 	while (*s != '\0')
 	{
-		*r = *reject;
+		const char *r = reject;
 
 		while (*r != '\0')
 		{

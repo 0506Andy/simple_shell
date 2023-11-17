@@ -15,7 +15,7 @@ char *get_env(void)
 	{
 		if (_strncmp(environ[i], "PATH", 4) == 0)
 		{
-			path = _strdup(environ[i]);
+			path = strdup(environ[i]);
 			return (path);
 		}
 		i++;
@@ -38,7 +38,7 @@ char *path_d(char *comd)
 
 	if (stat(comd, &st) == 0)
 	{
-		comand = _strdup(comd);
+		comand = strdup(comd);
 		return (comand);
 	}
 	path = get_env();
@@ -50,7 +50,7 @@ char *path_d(char *comd)
 	
 	while (rout[i] != NULL)
 	{
-		comand = _calloc((myStrlen(rout[i]) + myStrlen(comd) + 2), sizeof(char));
+		comand = _calloc((strlen(rout[i]) + strlen(comd) + 2), sizeof(char));
 		if (comand == NULL)
 		{
 			free(comand);

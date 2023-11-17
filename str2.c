@@ -26,11 +26,11 @@ int myStrcmp(const char *s1, const char *s2)
  * @s: Length of string
  * Return: length
  */
-int myStrlen(const char *s)
+size_t myStrlen(const char *s)
 {
-	int length = 0;
+	size_t length = 0;
 
-	while (s[length] != '\0')
+	while (s[length] != ('\0'))
 	{
 		length++;
 	}
@@ -45,25 +45,29 @@ int myStrlen(const char *s)
  */
 void *_calloc(size_t num_elements, size_t element_size)
 {
+	size_t total_size;
+	size_t i;
+	void *ptr;
+
 	if (num_elements == 0 || element_size == 0)
 	{
 		return (NULL);
 	}
 
-	size_t total_size = num_elements * element_size;
+	total_size = num_elements * element_size;
 
 	if (total_size / num_elements != element_size)
 	{
 		return (NULL);
 	}
-	void *ptr = malloc(total_size);
+	ptr = malloc(total_size);
 
 	if (ptr == NULL)
 	{
 		return (NULL);
 	}
 
-	for (size_t i = 0; i < total_size; i++)
+	for (i = 0; i < total_size; i++)
 	{
 		((char *)ptr)[i] = 0;
 	}

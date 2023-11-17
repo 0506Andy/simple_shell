@@ -7,8 +7,16 @@
  */
 void error_input(char *copy)
 {
-    char *msj_error = NULL;
-    int length = 0;
+	int status;
+	const int STATUS = 32512;
+	char *msj_error = NULL;
+	int length = 0;
+
+	status = write(STDERR_FILENO, copy, myStrlen(copy));
+	if (status == -1)
+	{
+		perror("Error writing to stderr");
+	}
 
     msj_error = _calloc((myStrlen(copy) + 23), sizeof(char));
     if (msj_error == NULL)
@@ -29,7 +37,7 @@ void error_input(char *copy)
         perror("write");
     }
 
-    const int STATUS = 32512;
+    exit(STATUS);
 
     free(msj_error);
 }
