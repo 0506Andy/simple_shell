@@ -36,7 +36,7 @@ char *_strcat(char *dest, char *src)
  * @src: String pointer
  * Return: Value of dest
  */
-char *_strcpy(char *dest, char *src)
+void _strcpy(char *dest, const char *src)
 {
 	char *start = dest;
 
