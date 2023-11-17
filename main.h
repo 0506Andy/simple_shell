@@ -11,6 +11,9 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+
+#define STATUS status
+
 extern char **environ;
 extern int status = 0;
 /**
@@ -24,10 +27,16 @@ typedef struct built_in
         char *key;
         int (*e)();
 } op_t;
-#define STATUS status
-int _word(char *strn)
-void free_tokens(char **token)
-char *tk_cm(const char *comand, const char *delim)
+
+char *get_command(void);
+int (*get_built_in(char *s))(void);
+void check_built_in(int (*e)(), char **buffer, char *command);
+void freess(char *path, char **list_token);
+void freesess(char *path, char **list_token, char *command);
+int _word(char *strn);
+void free_tokens(char **token);
+char **tk_cm(const char *comand, const char *delim);
+void error_input(char *copy);
 char *path_d(char *comd);
 void *_calloc(size_t num_elements, size_t element_size);
 void printParentPID(void);
@@ -39,8 +48,6 @@ int _setenv(const char *name, const char *value, int overwrite);
 void env_builtin(void);
 int execut(char **list_token, char *path);
 void exit_builtin(void);
-void freess(char *path, char **list_token);
-void freesess(char *path, char **list_token, char *command);
 char *get_env(void);
 char *path_d(char *comd);
 void run_shell(void);
@@ -51,7 +58,7 @@ char *_strchr(char *s, char c);
 int _strncmp(const char *s1, const char *s2, size_t n);
 size_t _strcspn(const char *s, const char *reject);
 int myStrcmp(const char *s1, const char *s2);
-int myStrlen(const char *s);
+int myStrlen(const char *s;
 char **splitString(const char *str, const char *delimiter, int *count);
 void printErrorMessage(const char *message);
 char *_strdup(const char *str);
@@ -63,4 +70,5 @@ int custom_close(int fd);
 int execut(char **list_token, char *path);
 pid_t custom_fork(void);
 
-#endif
+
+#endif /* MAIN_H */
