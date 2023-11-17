@@ -35,10 +35,8 @@ int main(void)
 			continue;
 		list_token = tk_cm(command, " \n\t");
 		if (!list_token)
-		{
 			free(command);
 			continue;
-		}
 		func = get_built_in(list_token[0]);
 		if (func)
 		{
