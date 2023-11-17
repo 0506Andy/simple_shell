@@ -21,7 +21,8 @@ ssize_t write_prompt(const char *prompt)
  */
 int main(void)
 {
-	int STATUS, (*func)() = NULL;
+	int STATUS;
+	int (*func)() = NULL;
 	char *pront = "myShell$: ", *command = NULL, **list_token = NULL;
 	char *path = NULL;
 

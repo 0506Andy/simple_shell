@@ -13,7 +13,7 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
-
+#define MAX_DEST_SIZE 1000
 extern char **environ;
 
 extern int STATUS;
