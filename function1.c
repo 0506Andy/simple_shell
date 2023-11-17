@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * exit_funcion - exit command.
+ * exit_func - exit command.
  * Return: 1.
  */
 int exit_func(void)
@@ -10,29 +10,29 @@ int exit_func(void)
 }
 
 /**
- * env_funcion - Function that looks for a builtin (env).
+ * env_func - Function that looks for a builtin (env).
  *
  * Return: 0.
  */
 int env_func(void)
 {
-    int i = 0;
+	int i = 0;
 
-    while (environ && environ[i])
-    {
-        if (write(STDOUT_FILENO, environ[i], strlen(environ[i])) == -1)
-        {
-            perror("write");
-            return -1; 
-        }
-        if (write(STDOUT_FILENO, "\n", 1) == -1)
-        {
-            perror("write");
-            return -1; 
-        }
-        i++;
-    }
-    return 0; 
+	while (environ && environ[i])
+	{
+		if (write(STDOUT_FILENO, environ[i], strlen(environ[i])) == -1)
+		{
+			perror("write");
+			return (-1);
+		}
+		if (write(STDOUT_FILENO, "\n", 1) == -1)
+		{
+			perror("write");
+			return (-1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 /**
@@ -68,6 +68,8 @@ int (*get_built_in(char *s))(void)
  */
 void check_built_in(int (*e)(), char **buffer, char *command)
 {
+	int STATUS;
+
 	if (e == exit_func)
 	{
 		free(command);

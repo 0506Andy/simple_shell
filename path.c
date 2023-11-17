@@ -42,12 +42,11 @@ char *path_d(char *comd)
 		return (comand);
 	}
 	path = get_env();
-
 	if (!path)
 		return (NULL);
 
 	rout = tk_cm(path, "=:");
-	
+
 	while (rout[i] != NULL)
 	{
 		comand = _calloc((strlen(rout[i]) + strlen(comd) + 2), sizeof(char));

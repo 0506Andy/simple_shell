@@ -29,7 +29,7 @@ int _word(const char *strn)
 }
 
 /**
- * free_tokens - Function that releases the tioken, 
+ * free_tokens - Function that releases the tioken,
  * iteration by iteration until reaching null.
  *
  * @token: token

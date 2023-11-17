@@ -15,6 +15,7 @@
 
 
 extern char **environ;
+
 extern int STATUS;
 /**
  * struct built_in - Struct built_in
@@ -24,8 +25,8 @@ extern int STATUS;
  */
 typedef struct built_in
 {
-        char *key;
-        int (*e)();
+	char *key;
+	int (*e)();
 } op_t;
 
 char *get_command(void);
@@ -53,7 +54,8 @@ int _putchar(char c);
 void print_environment(void);
 int _unsetenv(const char *name);
 char *_getenv(const char *name);
-int _setenv(const char *name, const char *value, int overwrite);
+int _setenv(const char *name,
+		const char *value, int overwrite);
 void env_builtin(void);
 int execut(char **list_token, char *path);
 void exit_builtin(void);
@@ -63,7 +65,8 @@ void run_shell(void);
 void readline(void);
 char **splitString(const char *str, const char *delimiter, int *count);
 void printErrorMessage(const char *message);
-int custom_execve(const char *pathname, char *const argv[], char *const envp[]);
+int custom_execve(const char *pathname,
+		char *const argv[], char *const envp[]);
 int custom_open(const char *pathname, int flags, mode_t mode);
 ssize_t custom_read(int fd, void *buf, size_t count);
 ssize_t custom_write(int fd, const void *buf, size_t count);
