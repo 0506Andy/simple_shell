@@ -1,75 +1,87 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * myStrcmp - Compares two strings
- * @s1:String to be compared
- * @s2:String to be compared
- * Return:(s1[i] - s2[i])
+ * _strcpy - copies a string
+ * @dest: the destination
+ * @src: the source
+ *
+ * Return: pointer to destination
  */
-int myStrcmp(const char *s1, const char *s2)
+char *_strcpy(char *dest, char *src)
 {
 	int i = 0;
 
-	while (s1[i] != '\0' && s2[i] != '\0')
+	if (dest == src || src == 0)
+		return (dest);
+	while (src[i])
 	{
-		if (s1[i] != s2[i])
-		{
-			return (s1[i] - s2[i]);
-		}
+		dest[i] = src[i];
 		i++;
 	}
-	return (s1[i] - s2[i]);
+	dest[i] = 0;
+	return (dest);
 }
 
 /**
- * myStrlen - Return length os a string
- * @s: Length of string
- * Return: length
+ * _strdup - duplicates a string
+ * @str: the string to duplicate
+ *
+ * Return: pointer to the duplicated string
  */
-size_t myStrlen(const char *s)
+char *_strdup(const char *str)
 {
-	size_t length = 0;
+	int length = 0;
+	char *ret;
 
-	while (s[length] != ('\0'))
-	{
+	if (str == NULL)
+		return (NULL);
+	while (*str++)
 		length++;
-	}
-	return (length);
+	ret = malloc(sizeof(char) * (length + 1));
+	if (!ret)
+		return (NULL);
+	for (length++; length--;)
+		ret[length] = *--str;
+	return (ret);
 }
 
 /**
- * _calloc - allocate block of memory for array
- * @num_elements: number of elements in array
- * @element_size:size of each element
- * Return: void
+ *_puts - prints an input string
+ *@str: the string to be printed
+ *
+ * Return: Nothing
  */
-void *_calloc(size_t num_elements, size_t element_size)
+void _puts(char *str)
 {
-	size_t total_size;
-	size_t i;
-	void *ptr;
+	int i = 0;
 
-	if (num_elements == 0 || element_size == 0)
+	if (!str)
+		return;
+	while (str[i] != '\0')
 	{
-		return (NULL);
+		_putchar(str[i]);
+		i++;
 	}
+}
 
-	total_size = num_elements * element_size;
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+	static int i;
+	static char buf[WRITE_BUF_SIZE];
 
-	if (total_size / num_elements != element_size)
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
 	{
-		return (NULL);
+		write(1, buf, i);
+		i = 0;
 	}
-	ptr = malloc(total_size);
-
-	if (ptr == NULL)
-	{
-		return (NULL);
-	}
-
-	for (i = 0; i < total_size; i++)
-	{
-		((char *)ptr)[i] = 0;
-	}
-	return (ptr);
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
+	return (1);
 }

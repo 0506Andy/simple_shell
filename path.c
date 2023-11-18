@@ -1,73 +1,86 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * get_env - get environment
+ * is_cmd - determines if a file is an executable command
+ * @info: the info struct
+ * @path: path to the file
  *
- * Return: NULL.
- *
+ * Return: 1 if true, 0 otherwise
  */
-char *get_env(void)
+int is_cmd(info_t *info, char *path)
 {
-	int i = 0;
-	char *path = NULL;
+	struct stat st;
 
-	while (environ && environ[i])
+	(void)info;
+	if (!path || stat(path, &st))
+		return (0);
+
+	if (st.st_mode & S_IFREG)
 	{
-		if (strncmp(environ[i], "PATH", 4) == 0)
-		{
-			path = strdup(environ[i]);
-			return (path);
-		}
-		i++;
+		return (1);
 	}
-	return (NULL);
+	return (0);
 }
 
 /**
- * path_d - the function
+ * dup_chars - duplicates characters
+ * @pathstr: the PATH string
+ * @start: starting index
+ * @stop: stopping index
  *
- * @comd: dsaf
- * Return: dfsa
+ * Return: pointer to new buffer
  */
-char *path_d(char *comd)
+char *dup_chars(char *pathstr, int start, int stop)
 {
-	char *path = NULL, **rout = NULL;
-	char *comand = NULL;
-	int i = 1;
-	struct stat st;
+	static char buf[1024];
+	int i = 0, k = 0;
 
-	if (stat(comd, &st) == 0)
-	{
-		comand = strdup(comd);
-		return (comand);
-	}
-	path = get_env();
+	for (k = 0, i = start; i < stop; i++)
+		if (pathstr[i] != ':')
+			buf[k++] = pathstr[i];
+	buf[k] = 0;
+	return (buf);
+}
 
-	if (!path)
+/**
+ * find_path - finds this cmd in the PATH string
+ * @info: the info struct
+ * @pathstr: the PATH string
+ * @cmd: the cmd to find
+ *
+ * Return: full path of cmd if found or NULL
+ */
+char *find_path(info_t *info, char *pathstr, char *cmd)
+{
+	int i = 0, curr_pos = 0;
+	char *path;
+
+	if (!pathstr)
 		return (NULL);
-	rout = tk_cm(path, "=:");
-	while (rout[i] != NULL)
+	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
 	{
-		comand = _calloc((strlen(rout[i]) + strlen(comd) + 2), sizeof(char));
-		if (comand == NULL)
+		if (is_cmd(info, cmd))
+			return (cmd);
+	}
+	while (1)
+	{
+		if (!pathstr[i] || pathstr[i] == ':')
 		{
-			free(comand);
-			return (NULL);
+			path = dup_chars(pathstr, curr_pos, i);
+			if (!*path)
+				_strcat(path, cmd);
+			else
+			{
+				_strcat(path, "/");
+				_strcat(path, cmd);
+			}
+			if (is_cmd(info, path))
+				return (path);
+			if (!pathstr[i])
+				break;
+			curr_pos = i;
 		}
-		strcpy(comand, rout[i]);
-		strcat(comand, "/");
-		strcat(comand, comd);
-		if (stat(comand, &st) == 0)
-		{
-			free(path);
-			free(rout);
-			return (comand);
-		}
-		free(comand);
 		i++;
 	}
-	free(path);
-	free(rout);
-	error_input(comd);
 	return (NULL);
 }
