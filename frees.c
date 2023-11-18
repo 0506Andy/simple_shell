@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * freess - a function that free the path and the list_token.
@@ -9,7 +9,6 @@
 void freess(char *path, char **list_token)
 {
 	free(path);
-
 	free_tokens(list_token);
 }
 

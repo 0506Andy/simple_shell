@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * get_env - get environment
@@ -13,7 +13,7 @@ char *get_env(void)
 
 	while (environ && environ[i])
 	{
-		if (_strncmp(environ[i], "PATH", 4) == 0)
+		if (strncmp(environ[i], "PATH", 4) == 0)
 		{
 			path = strdup(environ[i]);
 			return (path);
@@ -42,11 +42,10 @@ char *path_d(char *comd)
 		return (comand);
 	}
 	path = get_env();
+
 	if (!path)
 		return (NULL);
-
 	rout = tk_cm(path, "=:");
-
 	while (rout[i] != NULL)
 	{
 		comand = _calloc((strlen(rout[i]) + strlen(comd) + 2), sizeof(char));
@@ -55,9 +54,9 @@ char *path_d(char *comd)
 			free(comand);
 			return (NULL);
 		}
-		myStrcmp(comand, rout[i]);
-		_strcat(comand, "/");
-		_strcat(comand, comd);
+		strcpy(comand, rout[i]);
+		strcat(comand, "/");
+		strcat(comand, comd);
 		if (stat(comand, &st) == 0)
 		{
 			free(path);

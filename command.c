@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * get_command -the getline of the shell
@@ -6,10 +6,10 @@
  */
 char *get_command(void)
 {
-	int STATUS;
 	char *buffer = NULL;
 	size_t size = 0;
 	int lenght = 0;
+	int STATUS;
 
 	lenght = getline(&buffer, &size, stdin);
 	if (lenght == EOF)

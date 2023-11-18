@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * error_input - Function that prints an error messages.
@@ -7,36 +7,27 @@
  */
 void error_input(char *copy)
 {
-	int status;
-	int STATUS;
 	char *msj_error = NULL;
 	int length = 0;
 
-	STATUS = 32512;
-
-	status = write(STDERR_FILENO, copy, myStrlen(copy));
-	if (status == -1)
-	{
-		perror("Error writing to stderr");
-	}
-	msj_error = _calloc((myStrlen(copy) + 23), sizeof(char));
-
+	msj_error = _calloc((strlen(copy) + 23), sizeof(char));
 	if (msj_error == NULL)
 	{
 		free(msj_error);
 		return;
 	}
-	_strcat(msj_error, "./hsh: ");
-	_strcat(msj_error, "1");
-	_strcat(msj_error, ": ");
-	_strcat(msj_error, copy);
-	_strcat(msj_error, ": not found\n");
-	length = myStrlen(msj_error);
+	strcat(msj_error, "./hsh: ");
+	strcat(msj_error, "1");
+	strcat(msj_error, ": ");
+	strcat(msj_error, copy);
+
+	strcat(msj_error, ": not found\n");
+	length = strlen(msj_error);
 
 	if (write(2, msj_error, length) == -1)
 	{
 		perror("write");
 	}
-	exit(STATUS);
+	STATUS = 32512;
 	free(msj_error);
 }

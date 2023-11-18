@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * exit_func - exit command.
@@ -68,8 +68,6 @@ int (*get_built_in(char *s))(void)
  */
 void check_built_in(int (*e)(), char **buffer, char *command)
 {
-	int STATUS;
-
 	if (e == exit_func)
 	{
 		free(command);
