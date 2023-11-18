@@ -1,21 +1,14 @@
-#include "shell.h"
+#include "main.h"
 /**
- * write_prompt- write prompt
- * @prompt: to be written
- *
- * Return: ret
+ * write_prompt - writes prompt
+ * @prompt: prompt written
+ * Return:ret
  */
-int status = 0;
-
-ssize_t write_prompt(const char *prompt)
+void write_prompt(const char *prompt)
 {
-	ssize_t ret = write(STDOUT_FILENO, prompt, strlen(prompt));
-
-	if (ret == -1)
-	{
-	}
-	return (ret);
+	write(1, prompt, strlen(prompt));
 }
+
 /**
  * main - check the code and,
  *
@@ -23,14 +16,15 @@ ssize_t write_prompt(const char *prompt)
  */
 int main(void)
 {
+	int STATUS;
 	int (*func)() = NULL;
-	char *pront = "Alx$: ", *command = NULL, **list_token = NULL;
+	char *pront = "myShell$: ", *command = NULL, **list_token = NULL;
 	char *path = NULL;
 
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			(void)write_prompt(pront);
+			write_prompt(pront);
 		command = get_command();
 		if (command == NULL)
 			continue;
@@ -38,8 +32,7 @@ int main(void)
 		if (!list_token)
 		{
 			free(command);
-			continue;
-		}
+			continue; }
 		func = get_built_in(list_token[0]);
 		if (func)
 		{
